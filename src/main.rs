@@ -154,37 +154,58 @@ fn main() {
   // let aa = string_length(s); // 이렇게 하면 aa 로 소유권이 넘어감;
   // println!("s = {}", s);// 그래서 이게ㅐ 안됨. 에러남..s 는 더 이상 main 함수에서 못 씀
 
-  let s = String::from("hello~");
-  let len = calc_length(&s); // &s 는 s1 의 포인터 참조값만 가지고 있어서 2번 참조하면 데이터 hello~를 알 수 있다, 
+  // let s = String::from("hello~");
+  // let len = calc_length(&s); // &s 는 s1 의 포인터 참조값만 가지고 있어서 2번 참조하면 데이터 hello~를 알 수 있다, 
   // let len = calc_length(&mut s);
   // 소유권은 없고 참조값만 알기 때문에 가능한 것
   // 여기서 말하는 참조 값이랑 특정 데이터가 위치한, 접근할 수 있는 주소 
   // 소유권에 대해서 신경쓰지 않고 접근해서 잘 쓰다가 빠지면 댐  
-  println!("'{}'의 길이는 {} 입니다." , s, len);
+  // println!("'{}'의 길이는 {} 입니다." , s, len);
 
 
       // &mut 한번 만들면 또 못 만듬
     //데이터 경쟁조건 data race, 둘 이상의 포인터가 같은 데이터를 참조, 한개 이상의 포인터가 데이터를 쓰려고 접근, 해당 데이터 접근을 동기화할 방법이 없음.. Rust 는 아예 컴파일 타임에 데이터 경쟁조건을 방지!
-    let mut s = String::from("hello~");
+    // let mut s = String::from("hello~");
 
-    let r1 = &s; // 일반 불변 참조
-    let r2 = &s; // 일반 불변 참조
+    // let r1 = &s; // 일반 불변 참조
+    // let r2 = &s; // 일반 불변 참조
     // 참조가, 일반 참조끼리는 여러개 있어도 되지만 뮤터블이 끼는 순간 배타적이됨
-    let r3 = &mut s; // mut 참조
+    // let r3 = &mut s; // mut 참조
     // 이거 에러남...r3 바꾸는 순간 r1, r2 값도 바뀌자나,, 그럼 데이터 불변성 깨짐
     // 근데 웃긴게 이렇게 참조를 그냥 하는건 또 괜찮은데 
     // 사용 하는 순간 에러남
     // 참조값이 사용하는데 까지 보는것,,, r1, r2 사용안하면 뭐 가능하긴한데, 사용안하면 지우면 되지 굳이?
 
 
+    // Slice 슬라이스 타입
+    // 어떤 모음에 있는 (일부) 연속된 요소들을 참조하는 방법
+    // 참조와 마찬가지로 소유권을 넘기지는 않음
+
+    // let s = String::from("헬로 월드");
+
+    // let word = &s[0..6];
+    // let word = &s[7..13];
+
+    // println!("word = {}", word);
+
+    let mut user = User {
+      name: String::from("신재훈"),
+      email: String::from("noahshin11@gmail.com"),
+      active: true
+    };
+
+    user.email = String::from("ghgggg@gamil.com"); // mut 이 아니라서 안됨 근데 mut 하면 됨
     
+
+    println!("이용자의 이름은 {}", user.name)
 
 
 }
 
-fn calc_length(s: &String)-> usize {
-  // fn calc_length(s: &mut String)-> usize {
-  let length = s.len();
-  // s.push_str(", world"); // ERROR! 참조는 immutable 임
-  length
+
+
+struct User {
+  name: String,
+  email: String,
+  active: bool,
 }
