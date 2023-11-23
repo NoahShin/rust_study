@@ -188,24 +188,41 @@ fn main() {
 
     // println!("word = {}", word);
 
-    let mut user = User {
-      name: String::from("신재훈"),
-      email: String::from("noahshin11@gmail.com"),
-      active: true
+    // let mut user = User {
+    //   name: String::from("신재훈"),
+    //   email: String::from("noahshin11@gmail.com"),
+    //   active: true
+    // };
+
+    // user.email = String::from("ghgggg@gamil.com"); // mut 이 아니라서 안됨 근데 mut 하면 됨
+
+
+    // println!("이용자의 이름은 {}", user.name)
+    // let rect =(20,30);
+    let rect = Rectangle {
+      width: 30,
+      height: 20,
     };
+    let width = 30;
+    let height = 20;
 
-    user.email = String::from("ghgggg@gamil.com"); // mut 이 아니라서 안됨 근데 mut 하면 됨
-    
-
-    println!("이용자의 이름은 {}", user.name)
-
+    println!("면적은? {}", rect.area());
 
 }
 
-
-
-struct User {
-  name: String,
-  email: String,
-  active: bool,
+struct Rectangle {
+  width: u32,
+  height: u32,
 }
+
+impl Rectangle {
+  fn area(&self) ->u32 {
+    self.width * self.height
+  }
+}
+
+fn area(rect: &Rectangle) -> u32 {
+  rect.height * rect.width
+}
+
+
