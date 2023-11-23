@@ -145,18 +145,46 @@ fn main() {
   // }
 
   // 함수 호출 시 소유권 이동
-  let s = String::from("hello"); // 힙에 저장됨
+  // let s = String::from("hello"); // 힙에 저장됨
   // string_length(s); // 이 때 s의 소유권이 저 함수 안으로 넘어가 버림
   // println!("s = {}", s);// 그래서 이게ㅐ 안됨. 에러남..s 는 더 이상 main 함수에서 못 씀
   // 만약 기본 데이터 타입이면 그냥 복사 일어남
 
   // 근데 
-  let aa = string_length(s); // 이렇게 하면 aa 로 소유권이 넘어감;
+  // let aa = string_length(s); // 이렇게 하면 aa 로 소유권이 넘어감;
   // println!("s = {}", s);// 그래서 이게ㅐ 안됨. 에러남..s 는 더 이상 main 함수에서 못 씀
+
+  let s = String::from("hello~");
+  let len = calc_length(&s); // &s 는 s1 의 포인터 참조값만 가지고 있어서 2번 참조하면 데이터 hello~를 알 수 있다, 
+  // let len = calc_length(&mut s);
+  // 소유권은 없고 참조값만 알기 때문에 가능한 것
+  // 여기서 말하는 참조 값이랑 특정 데이터가 위치한, 접근할 수 있는 주소 
+  // 소유권에 대해서 신경쓰지 않고 접근해서 잘 쓰다가 빠지면 댐  
+  println!("'{}'의 길이는 {} 입니다." , s, len);
+
+
+      // &mut 한번 만들면 또 못 만듬
+    //데이터 경쟁조건 data race, 둘 이상의 포인터가 같은 데이터를 참조, 한개 이상의 포인터가 데이터를 쓰려고 접근, 해당 데이터 접근을 동기화할 방법이 없음.. Rust 는 아예 컴파일 타임에 데이터 경쟁조건을 방지!
+    let mut s = String::from("hello~");
+
+    let r1 = &s; // 일반 불변 참조
+    let r2 = &s; // 일반 불변 참조
+    // 참조가, 일반 참조끼리는 여러개 있어도 되지만 뮤터블이 끼는 순간 배타적이됨
+    let r3 = &mut s; // mut 참조
+    // 이거 에러남...r3 바꾸는 순간 r1, r2 값도 바뀌자나,, 그럼 데이터 불변성 깨짐
+    // 근데 웃긴게 이렇게 참조를 그냥 하는건 또 괜찮은데 
+    // 사용 하는 순간 에러남
+    // 참조값이 사용하는데 까지 보는것,,, r1, r2 사용안하면 뭐 가능하긴한데, 사용안하면 지우면 되지 굳이?
+
+
+    
+
 
 }
 
-fn string_length(s: String) -> String {
-  println!("string len is {}", s.len());
-  s
+fn calc_length(s: &String)-> usize {
+  // fn calc_length(s: &mut String)-> usize {
+  let length = s.len();
+  // s.push_str(", world"); // ERROR! 참조는 immutable 임
+  length
 }
