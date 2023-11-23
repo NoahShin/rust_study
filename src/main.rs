@@ -102,7 +102,7 @@ fn main() {
 
   // let y = if condition { 3 } else { 5 };
   // println!("y는 {y}입니다");
-  let mut counter = 0;
+  // let mut counter = 0;
   // loop {
   //   println!("loooop!");
   //   counter += 1;
@@ -121,13 +121,42 @@ fn main() {
   //   println!("{x}");
   // }
 
-  for i in (0..5) {
-    println!("{i}");
-  }
+  // for i in (0..5) {
+  //   println!("{i}");
+  // }
+
+  // 소유권 !!!!!!! 
+  // 메모리 할당과 해제
+
+  // 러스트에서 모든 값은 소유자가 있다
+  // 한 시점에 딱 하나의 소유자만 있을 수 있다.
+  // 소유자의 범위가 끝나면, 값도 제거된다.
+    
+  // {
+  //   let s1 = String::from("hello~"); // Heap 안에 있음
+  //   let s2 = s1; // s1의 소유권이 s2로 넘어감  s1.clone() 하면 s1 도 소유권이 남아있고, s2는 s1의 복제값을 가져감
+  //   // 그대신 힙메모리에 같은 데이터를 2개를 가지고 있겠찌
+
+  //   println!("s2 = {s2}");
+  //   // println!("s1 = {s1}"); 놀랍다 증말
+
+  //   let x= 3;
+  //   let y = x; // 기본 데이터 타입은 카피 알아서함... 클론 안해도 러스트가 자동으로 해줌 소유권 개념이 없다고 봐도댐 (String 튜플 제외))
+  // }
+
+  // 함수 호출 시 소유권 이동
+  let s = String::from("hello"); // 힙에 저장됨
+  // string_length(s); // 이 때 s의 소유권이 저 함수 안으로 넘어가 버림
+  // println!("s = {}", s);// 그래서 이게ㅐ 안됨. 에러남..s 는 더 이상 main 함수에서 못 씀
+  // 만약 기본 데이터 타입이면 그냥 복사 일어남
+
+  // 근데 
+  let aa = string_length(s); // 이렇게 하면 aa 로 소유권이 넘어감;
+  // println!("s = {}", s);// 그래서 이게ㅐ 안됨. 에러남..s 는 더 이상 main 함수에서 못 씀
+
 }
-// fn a_function(x: i32, y:i32) -> i32 {
-//     let sum = x + y;
-//     println!("{sum}");
-//     println!("다른 함수입니다. {x}");
-//     sum
-// }
+
+fn string_length(s: String) -> String {
+  println!("string len is {}", s.len());
+  s
+}
