@@ -77,17 +77,57 @@ fn main() {
    // 식 - 평가하고 나면 최종 결괏값이 있음
    // 함수는, 여러 명령문에 이어 마지막 식으로 끝남.
    // 마지막 식은 선택적
-   let x = 3;
-   let y = {
-     let x = 3;
-     5 + x
-   };
+  //  let x = 3;
+  //  let y = {
+  //    let x = 3;
+  //    5 + x
+  //  };
 
-   println!("y = {y}")
+  //  println!("y = {y}")
+
+  // IF expression
+
+  // let x = 5;
+  // if x % 3 == 0 {
+  //   println!("x는 3으로 나누어 떨어짐");
+  // } else if x % 3 == 1 {
+  //   println!("x를 3으로 나눈 나머지는 1")
+  // } else {
+  //   println!("x를 3으로 나눈 나머지는 2")
+  // }
+
+  // let 에 쓰는 if 
+  // let x = 4;
+  // let condition = false;
+
+  // let y = if condition { 3 } else { 5 };
+  // println!("y는 {y}입니다");
+  let mut counter = 0;
+  // loop {
+  //   println!("loooop!");
+  //   counter += 1;
+  //   if counter == 3 {
+  //     break;
+  //   }
+  // }
+
+  // while counter < 3 {
+  //   println!("rust ");
+  //   counter += 1;
+  // }
+
+  // let xs = [1,2,3,4,5];
+  // for x in xs {
+  //   println!("{x}");
+  // }
+
+  for i in (0..5) {
+    println!("{i}");
+  }
 }
-fn a_function(x: i32, y:i32) -> i32 {
-    let sum = x + y;
-    println!("{sum}");
-    println!("다른 함수입니다. {x}");
-    sum
-}
+// fn a_function(x: i32, y:i32) -> i32 {
+//     let sum = x + y;
+//     println!("{sum}");
+//     println!("다른 함수입니다. {x}");
+//     sum
+// }
