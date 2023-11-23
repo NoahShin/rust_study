@@ -62,9 +62,32 @@ fn main() {
     // 배열안에 값들의 data type 은 모두 같아야함 
 
     // 특정값으로 미리 채워서 배열 만들어 놓기 가능
-    let threes = [3; 100];
-    let last = threes[99];
-    println!("{last}")
+    // let threes = [3; 100];
+    // let last = threes[99];
+    // println!("{last}")
 
+    // functions 함수 
+    // snake 쓰는 것이 관례
 
+  //  a_function(3,5);
+
+   //명령문 Statement         
+   // 명령문 - 무언가 일을 하고 반환값은 없음
+   // 식 Expressions
+   // 식 - 평가하고 나면 최종 결괏값이 있음
+   // 함수는, 여러 명령문에 이어 마지막 식으로 끝남.
+   // 마지막 식은 선택적
+   let x = 3;
+   let y = {
+     let x = 3;
+     5 + x
+   };
+
+   println!("y = {y}")
+}
+fn a_function(x: i32, y:i32) -> i32 {
+    let sum = x + y;
+    println!("{sum}");
+    println!("다른 함수입니다. {x}");
+    sum
 }
